@@ -14,7 +14,6 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
         ]);
     }
 
@@ -40,5 +39,13 @@ class HomeController extends AbstractController
     public function depenses(): Response
     {
         return $this->render('home/depenses.html.twig');
+    }
+
+    /**
+     * @Route("/profile", name="profile_public")
+     */
+    public function profile(): Response
+    {
+        return $this->render('home/profile.html.twig');
     }
 }

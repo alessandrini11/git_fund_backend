@@ -32,6 +32,11 @@ class Depot
      */
     private $somme;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

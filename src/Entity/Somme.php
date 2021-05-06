@@ -22,7 +22,7 @@ class Somme
     /**
      * @ORM\Column(type="integer")
      */
-    private $somme;
+    private $nom;
 
     /**
      * @ORM\OneToMany(targetEntity=Depot::class, mappedBy="somme")
@@ -40,14 +40,14 @@ class Somme
         return $this->id;
     }
 
-    public function getSomme(): ?int
+    public function getNom(): ?int
     {
-        return $this->somme;
+        return $this->nom;
     }
 
-    public function setSomme(int $somme): self
+    public function setNom(int $nom): self
     {
-        $this->somme = $somme;
+        $this->nom = $nom;
 
         return $this;
     }

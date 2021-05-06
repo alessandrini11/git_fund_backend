@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Adherent{% endblock %}
+
+{% block body %}
+    <h1>Create new Adherent</h1>
+
+    {{ include('adherent/_form.html.twig') }}
+
+    <a href="{{ path('adherent_index') }}">back to list</a>
+{% endblock %}

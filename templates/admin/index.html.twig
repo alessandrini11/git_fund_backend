@@ -1,0 +1,103 @@
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}tableau de bord{% endblock %}
+
+{% block body %}
+    <div class="">
+        <main>
+            <div class="w-11/12 mx-auto md:max-w-4xl">
+                <h1 class="text-4xl my-5">Statistiques</h1>
+                <section class="mb-8">
+                    <div class="grid grid-cols-2 gap-2 md:gap-8 text-white text-xl">
+                        <div class="flex flex-col content-center h-32 flex-grow p-2  border shadow bg-white bg-purple-500">
+                            <p class="">Dépots <i class="fa fa-plus"></i></p>
+                            <p class="mt-auto text-right"><span class="counter">50000</span> XAF</p>
+                        </div>
+                        <div class="flex flex-col content-center h-32 flex-grow p-2 border shadow bg-white bg-pink-500">
+                            <p class="">Retrait <i class="fa fa-minus-circle"></i></p>
+                            <p class="mt-auto text-right"><span class="counter" >15000</span> XAF</p>
+                        </div>
+                        <div class="flex flex-col content-center h-32 p-2 border shadow bg-white bg-green-500">
+                            <p class="">Solde <i class="far fa-money-bill-alt"></i></p>
+                            <p class="mt-auto text-right"><span class="counter" >35000</span> XAF</p>
+                        </div>
+                        <div class="flex flex-col content-center h-32 p-2 border shadow bg-white bg-blue-500">
+                            <p class="">Adhérents <i class="fa fa-user"></i></p>
+                            <p class="mt-auto text-right"><span class="counter" >23</span></p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+
+                    <div class="md:flex md:justify-between">
+                        <div class="bg-white md:w-1/2">
+                            <canvas id="mensuel" height="300"></canvas>
+                        </div>
+                        <div class="bg-white md:w-1/2 my-5 md:my-0 md:mx-5  py-2">
+                            <canvas id="adherents" height="300"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.1.0/chart.min.js"
+            integrity="sha512-RGbSeD/jDcZBWNsI1VCvdjcDULuSfWTtIva2ek5FtteXeSjLfXac4kqkDRHVGf1TwsXCAqPTF7/EYITD0/CTqw=="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/noframework.waypoints.min.js"></script>
+        <script type="text/javascript">
+        let mensuel = document.getElementById("mensuel").getContext("2d");
+        let adherents = document.getElementById("adherents").getContext("2d");
+
+        let dataAdherent = new Chart(adherents,{
+            type:'doughnut',
+            data:{
+                labels:['GL','GRT'],
+                datasets:[{
+                    label:"adherents",
+                    data:['13','10'],
+                    backgroundColor:[
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)',
+                    ],
+                    borderWidth:2,
+                }]
+            },
+            options:{
+
+            },
+            scales:{
+                y:{
+                    min:0,
+                    max:1000000
+                }
+            }
+        });
+
+        let data = new Chart(mensuel,{
+            type:'line',
+            data:{
+                labels:['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'],
+                datasets:[{
+                    label:'montant',
+                    data:['1000','5000','9500','2000','7000','33000','6000','1500','10000','11000','5000','15000'],
+                    backgroundColor:"green",
+                    borderWidth:2,
+                    borderColor:'green',
+                    tension:0.2
+                }]
+            },
+            options:{
+
+            },
+            scales:{
+                y:{
+                    min:0,
+                    max:1000000
+                }
+            }
+        });
+    </script>
+{% endblock %}

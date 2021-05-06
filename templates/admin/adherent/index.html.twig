@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adherent index{% endblock %}
+
+{% block body %}
+    <section>
+        <h1 class="text-3xl my-2">Les Adhérents</h1>
+        <p class="mb-2 text-right"><button id="depotadd" class="text-white bg-blue-600 p-1"><i
+                        class="fa fa-plus"></i></button></p>
+
+        <div>
+            <table class="w-full text-center bg-white hidden md:table">
+                <thead class="bg-black text-white">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Sexe</th>
+                    <th>Filiere</th>
+                    <th>Matricule</th>
+                    <th>Poste</th>
+                    <th>Total cotisé</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set total = 0 %}
+                {% for adherent in adherents %}
+                    <tr class="{% if loop.index is even %}bg-gray-300{% endif %}">
+                        <td>{{ adherent.nom }}</td>
+                        <td>{{ adherent.prenom }}</td>
+                        <td>{{ adherent.sexe.nom }}</td>
+                        <td>{{ adherent.filiere.nom }}</td>
+                        <td>{{ adherent.matricule }}</td>
+                        <td>{{ adherent.poste.nom }}</td>
+                        <td>
+                                {% for depot in adherent.depots %}
+                                    {% set total = total + depot.somme.nom  %}
+                                {% endfor %}
+                                {{ total | number_format(0,'','.') }} XAF
+                        </td>
+                        <td>
+                            <div class="flex justify-around py-1">
+                                <a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="p-1 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
+                                {{ include('admin/adherent/_delete_form.html.twig') }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <table class="w-full bg-white md:hidden">
+                <tbody>
+                {% for adherent in adherents %}
+                    <tr>
+                    <tr class="bg-gray-300">
+                        <th>Nom</th>
+                        <td>{{adherent.nom}}</td>
+                    </tr>
+                    <tr>
+                        <th>Prenom</th>
+                        <td>{{ adherent.prenom }}</td>
+                    </tr>
+                    <tr class="bg-gray-300">
+                        <th>Sexe</th>
+                        <td> {{ adherent.sexe.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Filiere</th>
+                        <td>{{ adherent.filiere.nom }}</td>
+                    </tr>
+                    <tr class="bg-gray-300">
+                        <th>Matricule</th>
+                        <td> {{ adherent.matricule }}</td>
+                    </tr>
+                    <tr>
+                        <th>Poste</th>
+                        <td> {{ adherent.poste.nom }}</td>
+                    </tr>
+                    <tr class="bg-gray-300">
+                        <th>Total cotisé</th>
+                        <td>
+                            {{ total | number_format(0,'','.') }}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Action</th>
+                        <td>
+                            <div class="flex flex-row py-1">
+                                <a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class=" p-1 mr-5 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
+                                {{ include('admin/adherent/_delete_form.html.twig') }}
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+        <div id="modal"
+             class="w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col  transition-all duration-500 ease hidden">
+            <form class="my-5  w-9/12 bg-white p-3 md:w-max" action="">
+                <p class="mb-2 text-right"><button id="closemodal"><i class="fas fa-times"></i></button></p>
+                <h2 class="text-2xl text-center">Inscrivez un membre</h2>
+                <div class="mb-4 flex flex-col ">
+                    <label for="nom">Nom</label>
+                    <input class="border border-2
+                        border-gray-500 px-3" id="nom" type="text">
+                </div>
+                <div class="my-4 flex flex-col ">
+                    <label for="prenom">Prenom</label>
+                    <input class="border border-2
+                        border-gray-500 px-3" id="prenom" type="text">
+                </div>
+                <div class="flex justify-between  my-4">
+                    <div class=" flex flex-col ">
+                        <label for="filiere">Filière</label>
+                        <select class="border border-2
+                            border-gray-500 px-3" name="filiere" id="filiere">
+                            <option value="">GL</option>
+                            <option value="">GRT</option>
+                        </select>
+                    </div>
+                    <div class=" flex flex-col ">
+                        <label for="sexe">Sexe</label>
+                        <select class="px-3 border border-2
+                            border-gray-500" name="sexe" id="sexe">
+                            <option value="">masculin</option>
+                            <option value="">feminin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-between my-4">
+                    <div class=" flex flex-col ">
+                        <label for="poste">Poste</label>
+                        <select class="border border-2
+                            border-gray-500 px-2" name="poste" id="poste">
+                            <option value="">président</option>
+                            <option value="">trésorier</option>
+                            <option value="">censeur</option>
+                        </select>
+                    </div>
+                    <div class=" flex flex-col ml-5">
+                        <label for="role">Role</label>
+                        <select class="px-2 border border-2
+                            border-gray-500" name="role" id="role">
+                            <option value="">visiteur</option>
+                            <option value="">admin</option>
+                            <option value="">super admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="my-4 flex flex-col ">
+                    <label for="matricule">Matricule</label>
+                    <input class="border border-2
+                        border-gray-500 px-3" id="matricule" type="text">
+                </div>
+                <div class="my-4 flex flex-col ">
+                    <label for="mdp">Mot de passe</label>
+                    <input class="border border-2
+                        border-gray-500 px-3" id="mdp" type="password">
+                </div>
+                <div class="">
+                    <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Inscrire</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

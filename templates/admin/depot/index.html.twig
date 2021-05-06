@@ -1,5 +1,7 @@
-{% extends 'base.html.twig' %}
-{% block title %} dépots {% endblock %}
+{% extends 'adminbase.html.twig' %}
+
+{% block title %}Depot index{% endblock %}
+
 {% block body %}
     <section>
         <div class="">
@@ -26,76 +28,45 @@
                             <option value="">2022</option>
                             <option value="">2023</option>
                         </select>
-                        <button type="submit" class="bg-purple-500 py-1 px-3 text-white"><i class="fa fa-search"></i></button>
+                        <button type="submit" class="bg-purple-500 py-1 px-3 text-white"><i
+                                    class="fa fa-search"></i></button>
                     </div>
                 </form>
             </div>
             <div class="mt-8">
+                {% for message in app.flashes('success')  %}
+                    <p class="bg-green-300 text-green-800 py-1 px-3">{{ message }}</p>
+                {% endfor %}
+                {% for message in app.flashes('supprimer')  %}
+                    <p class="bg-red-300 text-red-800 py-1 px-3">{{ message }}</p>
+                {% endfor %}
                 <h1 class="text-3xl my-3">Tous les dépots</h1>
-                <table class="p-10 w-full text-center">
+                <p class="mb-2 text-right"><button id="depotadd" class="text-white bg-blue-600 p-1"><i
+                                class="fa fa-plus"></i></button></p>
+                <table class="p-10 w-full bg-white">
                     <thead class="bg-black text-white">
                     <tr>
                         <th>Nom</th>
-                        <th>Prénom</th>
                         <th>Somme</th>
                         <th>Date</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-gray-100">
-                        <td>Schuame</td>
-                        <td>Alexandre lionel</td>
-                        <td>1000</td>
-                        <td>12 jan 2021</td>
+
+                    {% for depot in depots %}
+                    <tr class="{% if loop.index%2 == 0 %} bg-gray-100 {% endif %} ">
+                        <td>{{ depot.adherents.nom }} {{ depot.adherents.prenom }}</td>
+                        <td>{{ depot.somme.nom }}</td>
+                        <td> {{ depot.createdAt ? depot.createdAt|date('Y-m-d ') : '' }}</td>
+                        <td>
+                            <div class="flex justify-between md:justify-around py-2">
+                                <a href="{{ path('depot_edit', {'id': depot.id}) }}" class="p-1 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
+                                {{ include('admin/depot/_delete_form.html.twig') }}
+                            </div>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Moumy Moumy</td>
-                        <td>Yves-Gaetan </td>
-                        <td>5000</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
+                    {% endfor %}
                     <tr>
                         <td></td>
                         <td> </td>
@@ -119,6 +90,23 @@
             </div>
         </div>
     </section>
+    <div id="modal"
+         class="w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col  hidden">
+        <div class="my-5 w-9/12 bg-white p-3 md:w-max">
+            <p class="mb-2 text-right"><button id="closemodal"><i class="fas fa-times"></i></button></p>
+            <h2 class="text-2xl text-center">Effectuer un depot</h2>
+            {{ form_start(form) }}
+                <div class="mb-4 ">
+                    {{ form_row(form.adherents,{'attr':{'class':'border border-2 border-gray-600'}}) }}
+                </div>
+                <div class="mb-4 ">
+                    {{ form_row(form.somme,{'attr':{'class':'border border-2 border-gray-600 w-1/2'}}) }}
+                </div>
+                <div class="">
+                    <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Effectué</button>
+                </div>
+            {{ form_end(form) }}
+        </div>
 
+    </div>
 {% endblock %}
-
