@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdherentController extends AbstractController
 {
     /**
-     * @Route("/", name="adherent_index", methods={"GET"})
+     * @Route("/", name="adherent_index", methods={"GET","POST"})
      */
     public function index(AdherentRepository $adherentRepository,Request $request): Response
     {
@@ -29,10 +29,15 @@ class AdherentController extends AbstractController
             $entityManager->persist($adherent);
             $entityManager->flush();
 
+            $this->addFlash(
+                'success',
+                'L\'adherent '.$adherent->getNom().' a été enregistré '
+            );
             return $this->redirectToRoute('adherent_index');
         }
         return $this->render('admin/adherent/index.html.twig', [
             'adherents' => $adherentRepository->findAll(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -80,10 +85,14 @@ class AdherentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash(
+                'success',
+                'L\'adherent '.$adherent->getNom().' a été modifié '
+            );
             return $this->redirectToRoute('adherent_index');
         }
 
-        return $this->render('adherent/edit.html.twig', [
+        return $this->render('admin/adherent/edit.html.twig', [
             'adherent' => $adherent,
             'form' => $form->createView(),
         ]);
@@ -98,6 +107,11 @@ class AdherentController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($adherent);
             $entityManager->flush();
+
+            $this->addFlash(
+                'supprimer',
+                'L\'adherent '.$adherent->getNom().' a été supprimé '
+            );
         }
 
         return $this->redirectToRoute('adherent_index');
