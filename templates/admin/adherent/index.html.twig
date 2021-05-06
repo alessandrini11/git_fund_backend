@@ -30,8 +30,8 @@
                 </thead>
                 <tbody>
 
-                    {% set total = 0 %}
                 {% for adherent in adherents %}
+                {% set total = 0 %}
                     <tr class="{% if loop.index is even %}bg-gray-300{% endif %}">
                         <td>{{ adherent.nom }}</td>
                         <td>{{ adherent.prenom }}</td>
@@ -62,6 +62,7 @@
             <table class="w-full bg-white md:hidden">
                 <tbody>
                 {% for adherent in adherents %}
+                {% set total = 0 %}
                     <tr>
                     <tr class="bg-gray-300">
                         <th>Nom</th>
@@ -90,7 +91,10 @@
                     <tr class="bg-gray-300">
                         <th>Total cotisé</th>
                         <td>
-                            {{ total | number_format(0,'','.') }}
+                            {% for depot in adherent.depots %}
+                                {% set total = total + depot.somme.nom  %}
+                            {% endfor %}
+                            {{ total | number_format(0,'','.') }} XAF
                         </td>
                     </tr>
 
