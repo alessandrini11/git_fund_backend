@@ -36,7 +36,7 @@ class AdherentController extends AbstractController
             return $this->redirectToRoute('adherent_index');
         }
         return $this->render('admin/adherent/index.html.twig', [
-            'adherents' => $adherentRepository->findAll(),
+            'adherents' => $adherentRepository->findBy(array(),array('nom' => 'ASC')),
             'form' => $form->createView()
         ]);
     }
@@ -65,11 +65,11 @@ class AdherentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="adherent_show", methods={"GET"})
+     * @Route("/{id}", name="adherent_show", methods={"GET"},requirements={"id"="\d+"})
      */
     public function show(Adherent $adherent): Response
     {
-        return $this->render('adherent/show.html.twig', [
+        return $this->render('/admin/adherent/show.html.twig', [
             'adherent' => $adherent,
         ]);
     }

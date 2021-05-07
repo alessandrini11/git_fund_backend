@@ -42,66 +42,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-gray-100">
-                        <td>Schuame</td>
-                        <td>Alexandre lionel</td>
-                        <td>1000</td>
-                        <td>12 jan 2021</td>
+                    {% for depot in depots %}
+                    <tr class="{% if loop.index is even %}bg-gray-300{% endif %}">
+                        <td>{{ depot.adherents.nom }}</td>
+                        <td>{{ depot.adherents.prenom}}</td>
+                        <td>{{ depot.somme.nom}}</td>
+                        <td>{{ depot.createdAt | date('d M Y')}}</td>
                     </tr>
-                    <tr>
-                        <td>Moumy Moumy</td>
-                        <td>Yves-Gaetan </td>
-                        <td>5000</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>Hannah Hannah</td>
-                        <td>Esther</td>
-                        <td>2000</td>
-                        <td>28 dec 2020</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td> </td>
-                        <td>Total</td>
-                        <td class="font-bold">16.000</td>
-                    </tr>
+                    {% endfor %}
+
                     </tbody>
                 </table>
                 <div class="text-center my-5">

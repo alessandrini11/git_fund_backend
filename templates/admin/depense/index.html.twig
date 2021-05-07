@@ -1,6 +1,6 @@
 {% extends 'adminbase.html.twig' %}
 
-{% block title %}Depense index{% endblock %}
+{% block title %}depense{% endblock %}
 
 {% block body %}
     <section>
@@ -58,7 +58,7 @@
                         <tr class="{% if loop.index%2 == 0 %}bg-gray-100{% endif %}">
                             <td>{{depense.somme}}</td>
                             <td>{{depense.motif}}</td>
-                            <td>{{  depense.created ? depense.created|date('Y-m-d ') : '' }}</td>
+                            <td>{{  depense.created ? depense.created|date('d M Y') : '' }}</td>
                             <td>
                                 <div class="flex justify-around md:justify-center py-2">
                                     <a href="{{ path('depense_edit', {'id': depense.id}) }}" class="p-1 bg-green-600 text-white mr-5"><i
@@ -73,7 +73,13 @@
 
                         <td></td>
                         <td>Total</td>
-                        <td><span class="font-bold">16.000</span></td>
+                        <td>
+                                {% set total = 0 %}
+                            {% for depense in depenses %}
+                                {% set total = total + depense.somme  %}
+                            {% endfor %}
+                                <span class="font-bold">{{total}}</span>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

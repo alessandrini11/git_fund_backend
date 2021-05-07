@@ -59,114 +59,50 @@
         </table>
         <table class="w-full bg-white md:hidden">
             <tbody>
-            <tr class="bg-gray-100">
-            <tr>
+            {% for adherent in adherents %}
+            <tr class="">
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Nom</th>
-                <td>Schuame</td>
+                <td>{{ adherent.nom}}</td>
             </tr>
-            <tr>
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Prenom</th>
-                <td>Alexandre Lionel</td>
+                <td>{{ adherent.prenom }}</td>
             </tr>
-            <tr>
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Sexe</th>
-                <td> masculin</td>
+                <td> {{ adherent.sexe.nom }}</td>
             </tr>
-            <tr>
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Filière</th>
-                <td> GL</td>
+                <td> {{ adherent.filiere.nom }}</td>
             </tr>
-            <tr>
+                <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
+                    <th>Matricule</th>
+                    <td> {{ adherent.matricule }}</td>
+                </tr>
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Poste</th>
-                <td> Président</td>
+                <td> {{ adherent.poste.nom}}</td>
             </tr>
-            <tr>
+            <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Total cotisé</th>
-                <td>5000 </td>
+                <td>
+                    {% set total = 0 %}
+                    {% for depot in adherent.depots %}
+                        {% set total = total + depot.somme.nom %}
+                    {% endfor %}
+                    {{ total }} XAF
+                </td>
             </tr>
+                <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
+                    <th>Action</th>
+                    <td>
+                        <a class="inline-grid my-2 p-1 mr-5 bg-purple-600 text-white" href="{{ path('profile_public',{'id' : adherent.id }) }}"><i class="fas fa-eye"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
 
-            </tr>
-            <tr>
-            <tr class="bg-gray-100">
-                <th>Nom</th>
-                <td>Schuame</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Prenom</th>
-                <td>Alexandre Lionel</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Sexe</th>
-                <td> masculin</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Filière</th>
-                <td> GL</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Poste</th>
-                <td> Président</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Total cotisé</th>
-                <td>5000 </td>
-            </tr>
-
-            </tr>
-
-            <tr>
-            <tr>
-                <th>Nom</th>
-                <td>Schuame</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>Alexandre Lionel</td>
-            </tr>
-            <tr>
-                <th>Sexe</th>
-                <td> masculin</td>
-            </tr>
-            <tr>
-                <th>Filière</th>
-                <td> GL</td>
-            </tr>
-            <tr>
-                <th>Poste</th>
-                <td> Président</td>
-            </tr>
-            <tr>
-                <th>Total cotisé</th>
-                <td>5000 </td>
-            </tr>
-            </tr>
-            <tr>
-            <tr class="bg-gray-100">
-                <th>Nom</th>
-                <td>Schuame</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Prenom</th>
-                <td>Alexandre Lionel</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Sexe</th>
-                <td> masculin</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Filière</th>
-                <td> GL</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Poste</th>
-                <td> Président</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <th>Total cotisé</th>
-                <td>5000 </td>
-            </tr>
-
-            </tr>
             </tbody>
         </table>
     </div>

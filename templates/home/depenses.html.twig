@@ -32,7 +32,7 @@
                 </form>
             </div>
             <div class="mt-8">
-                <h1 class="text-3xl my-3">Tous les retraits</h1>
+                <h1 class="text-3xl my-3">Toutes les dépenses</h1>
                 <table class="w-full text-center">
                     <thead class="bg-black text-white">
                     <tr>
@@ -42,56 +42,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-gray-100">
-                        <td>1000</td>
-                        <td>achat</td>
-                        <td>12 jan 2021</td>
-                    </tr>
-                    <tr>
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr>
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr>
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr>
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr class="bg-gray-100">
-                        <td>5000</td>
-                        <td>achat</td>
-                        <td>02 jan 2021</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>Total</td>
-                        <td><span class="font-bold">16.000</span></td>
-                    </tr>
+                    {% for depense in depenses %}
+                        <tr class="{% if loop.index is even %}bg-gray-300{% endif %}">
+                            <td>{{ depense.somme}}</td>
+                            <td>{{ depense.motif}}</td>
+                            <td>{{ depense.created | date(' d M Y')}}</td>
+                        </tr>
+                    {% endfor %}
+
                     </tbody>
                 </table>
                 <div class="text-center mt-5">

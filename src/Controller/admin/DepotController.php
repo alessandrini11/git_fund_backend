@@ -36,7 +36,7 @@ class DepotController extends AbstractController
             return $this->redirectToRoute('depot_index');
         }
         return $this->render('admin/depot/index.html.twig', [
-            'depots' => $depotRepository->findAll(),
+            'depots' => $depotRepository->findBy(array(),array('created_at' => 'DESC')),
             'form' => $form->createView(),
         ]);
     }

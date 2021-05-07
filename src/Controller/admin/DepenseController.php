@@ -36,7 +36,7 @@ class DepenseController extends AbstractController
             return $this->redirectToRoute('depense_index');
         }
         return $this->render('admin/depense/index.html.twig', [
-            'depenses' => $depenseRepository->findAll(),
+            'depenses' => $depenseRepository->findBy(array(),array('id' => 'DESC')),
             'form' => $form->createView(),
         ]);
     }

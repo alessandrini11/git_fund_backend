@@ -58,7 +58,7 @@
                     <tr class="{% if loop.index%2 == 0 %} bg-gray-100 {% endif %} ">
                         <td>{{ depot.adherents.nom }} {{ depot.adherents.prenom }}</td>
                         <td>{{ depot.somme.nom }}</td>
-                        <td> {{ depot.createdAt ? depot.createdAt|date('Y-m-d ') : '' }}</td>
+                        <td> {{ depot.createdAt ? depot.createdAt|date('d M Y') : '' }}</td>
                         <td>
                             <div class="flex justify-between md:justify-around py-2">
                                 <a href="{{ path('depot_edit', {'id': depot.id}) }}" class="p-1 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
@@ -71,7 +71,13 @@
                         <td></td>
                         <td> </td>
                         <td>Total</td>
-                        <td class="font-bold">16.000</td>
+                        <td class="font-bold">
+                            {% set total = 0 %}
+                            {% for depot in depots %}
+                                {% set total = total + depot.somme.nom %}
+                            {% endfor %}
+                            {{total | number_format(0,',','.')}}
+                        </td>
                     </tr>
                     </tbody>
                 </table>

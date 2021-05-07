@@ -36,7 +36,10 @@ class Depot
     {
         $this->created_at = new \DateTime();
     }
-
+    public function getMonth()
+    {
+        return $this->created_at->format('M');
+    }
     public function getId(): ?int
     {
         return $this->id;

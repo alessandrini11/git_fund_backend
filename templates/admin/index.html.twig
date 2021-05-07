@@ -6,29 +6,54 @@
     <div class="">
         <main>
             <div class="w-11/12 mx-auto md:max-w-4xl">
-                <h1 class="text-4xl my-5">Statistiques</h1>
-                <section class="mb-8">
+
+                <section class="my-5">
                     <div class="grid grid-cols-2 gap-2 md:gap-8 text-white text-xl">
                         <div class="flex flex-col content-center h-32 flex-grow p-2  border shadow bg-white bg-purple-500">
                             <p class="">Dépots <i class="fa fa-plus"></i></p>
-                            <p class="mt-auto text-right"><span class="counter">50000</span> XAF</p>
+                            <p class="mt-auto text-right">
+                                {% set totaldepot = 0 %}
+                                {% for depot in depots %}
+                                    {% set totaldepot = totaldepot + depot.somme.nom %}
+                                {% endfor %}
+                                <span class="counter">
+                                    {{ totaldepot }}
+                                </span> XAF
+
+                            </p>
                         </div>
                         <div class="flex flex-col content-center h-32 flex-grow p-2 border shadow bg-white bg-pink-500">
-                            <p class="">Retrait <i class="fa fa-minus-circle"></i></p>
-                            <p class="mt-auto text-right"><span class="counter" >15000</span> XAF</p>
+                            <p class="">Dépenses <i class="fa fa-minus-circle"></i></p>
+                            <p class="mt-auto text-right">
+                                {% set totaldepense = 0 %}
+                                {% for depense in depenses %}
+                                    {% set totaldepense = totaldepense + depense.somme %}
+                                {% endfor %}
+                                <span class="counter" >
+                                    {{totaldepense}}
+                                </span> XAF
+                            </p>
                         </div>
                         <div class="flex flex-col content-center h-32 p-2 border shadow bg-white bg-green-500">
                             <p class="">Solde <i class="far fa-money-bill-alt"></i></p>
-                            <p class="mt-auto text-right"><span class="counter" >35000</span> XAF</p>
+                            <p class="mt-auto text-right">
+                                <span class="counter" >
+                                    {{ totaldepot - totaldepense }}
+                                </span> XAF
+                            </p>
                         </div>
                         <div class="flex flex-col content-center h-32 p-2 border shadow bg-white bg-blue-500">
                             <p class="">Adhérents <i class="fa fa-user"></i></p>
-                            <p class="mt-auto text-right"><span class="counter" >23</span></p>
+                            <p class="mt-auto text-right">
+                                <span class="counter" >
+                                    {{ adhrents | length }}
+                                </span>
+                            </p>
                         </div>
                     </div>
                 </section>
                 <section>
-
+                    <h1 class="text-4xl my-5">Statistiques</h1>
                     <div class="md:flex md:justify-between">
                         <div class="bg-white md:w-1/2">
                             <canvas id="mensuel" height="300"></canvas>
