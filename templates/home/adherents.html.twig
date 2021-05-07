@@ -12,49 +12,28 @@
                 <th>Filère</th>
                 <th>Poste</th>
                 <th>Total cotisé</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="bg-gray-100">
-                <td>Yasser</td>
-                <td>Arafad Boubakari</td>
-                <td>masculin</td>
-                <td>GL</td>
-                <td>Président</td>
-                <td>5000</td>
+            {% for adherent in adherents %}
+            <tr class="{% if loop.index is even %}bg-gray-300{% endif %}">
+                <td>{{ adherent.nom}}</td>
+                <td>{{ adherent.prenom }}</td>
+                <td>{{ adherent.sexe.nom}}</td>
+                <td>{{ adherent.matricule}}</td>
+                <td>{{ adherent.poste.nom }}</td>
+                <td>
+                    {% set total = 0 %}
+                    {% for depot in adherent.depots %}
+                        {% set total = total + depot.somme.nom %}
+                    {% endfor %}
+                    {{ total }} XAF
+                </td>
+                <td><a class="inline-grid my-2 p-1 mr-5 bg-purple-600 text-white" href="{{ path('profile_public',{'id' : adherent.id }) }}"><i class="fas fa-eye"></i></a></td>
             </tr>
-            <tr>
-                <td>Schuame</td>
-                <td>Alexandre Lionel</td>
-                <td>masculin</td>
-                <td>GRT</td>
-                <td>Président</td>
-                <td>5000</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <td>Schuame</td>
-                <td>Alexandre Lionel</td>
-                <td>masculin</td>
-                <td>GL</td>
-                <td>Président</td>
-                <td>5000</td>
-            </tr>
-            <tr>
-                <td>Tomedi</td>
-                <td>Suzane</td>
-                <td>feminin</td>
-                <td>GL</td>
-                <td>Président</td>
-                <td>5000</td>
-            </tr>
-            <tr class="bg-gray-100">
-                <td>Schuame</td>
-                <td>Alexandre Lionel</td>
-                <td>masculin</td>
-                <td>GRT</td>
-                <td>Président</td>
-                <td>5000</td>
-            </tr>
+            {% endfor %}
+
             </tbody>
         </table>
         <table class="w-full bg-white md:hidden">

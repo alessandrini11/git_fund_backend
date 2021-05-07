@@ -32,6 +32,11 @@ class Depot
      */
     private $somme;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Date::class, inversedBy="depots")
+     */
+    private $date;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -77,6 +82,18 @@ class Depot
     public function setSomme(?Somme $somme): self
     {
         $this->somme = $somme;
+
+        return $this;
+    }
+
+    public function getDate(): ?Date
+    {
+        return $this->date;
+    }
+
+    public function setDate(?Date $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
