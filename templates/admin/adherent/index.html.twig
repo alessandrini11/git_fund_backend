@@ -118,27 +118,34 @@
                 </tbody>
             </table>
         </div>
-        <div id="modal"class="w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col hidden">
-            <div class="my-5  w-9/12 bg-white p-3 md:w-max">
+
+        {# formulaire de d enregistrement du nouvel adherent qui est caché #}
+        <div id="modal"class="hidden w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col ">
+            <div class="my-5  bg-white p-3 w-max">
                 <p class="mb-2 text-right"><button id="closemodal"><i class="fas fa-times"></i></button></p>
                 <h2 class="text-2xl text-center">Inscrivez un membre</h2>
                 {{ form_start(form) }}
                 <div class="mb-4 flex flex-col ">
-                    {{ form_row(form.nom,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Nom</label>
+                    {{ form_row(form.nom,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="mb-4 flex flex-col ">
-                    {{ form_row(form.prenom,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Prenom</label>
+                    {{ form_row(form.prenom,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="flex justify-between  my-4">
                     <div class=" flex flex-col ">
-                        {{ form_row(form.sexe,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                        <label for="">Sexe</label>
+                        {{ form_row(form.sexe,{'attr':{'class':'  border border-2 border-gray-500 px-3'}}) }}
                     </div>
-                    <div class=" flex flex-col ">
+                    <div class=" flex flex-col ml-5">
+                        <label for="">Poste</label>
                         {{ form_row(form.poste,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
                     </div>
                 </div>
                 <div class="flex justify-between  my-4">
                     <div class=" flex flex-col ">
+                        <label for="">Filière</label>
                         {{ form_row(form.filiere,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
                     </div>
                     <div class=" flex flex-col ml-5">
@@ -152,10 +159,17 @@
                     </div>
                 </div>
                 <div class="mb-4 flex flex-col ">
-                    {{ form_row(form.matricule,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Matricule</label>
+                    {{ form_row(form.matricule,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="mb-4 flex flex-col ">
-                    {{ form_row(form.mdp,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Mot de passe</label>
+                     {{ form_row(form.mdp.first,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
+                </div>
+
+                <div class="mb-4 flex flex-col ">
+                     <label for="">Confirmez le mot de passe</label>
+                    {{ form_row(form.mdp.second,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="">
                     <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Inscrire</button>

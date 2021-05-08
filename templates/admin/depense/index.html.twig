@@ -6,7 +6,7 @@
     <section>
         <div class="">
             <div class="">
-                <form action="">
+               {# <form action="">
                     <h2 class="text-xl my-3">Triez les dépots</h2>
 
                     <div class="">
@@ -33,6 +33,7 @@
                                     class="fa fa-search"></i></button>
                     </div>
                 </form>
+                #}
             </div>
             <div class="mt-8">
                 {% for message in app.flashes('success') %}
@@ -55,7 +56,7 @@
                     </thead>
                     <tbody>
                     {% for depense in depenses %}
-                        <tr class="{% if loop.index%2 == 0 %}bg-gray-100{% endif %}">
+                        <tr class="{% if loop.index%2 == 0 %}bg-gray-300{% endif %}">
                             <td>{{depense.somme}}</td>
                             <td>{{depense.motif}}</td>
                             <td>{{  depense.created ? depense.created|date('d M Y') : '' }}</td>
@@ -83,18 +84,28 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="text-center mt-5">
-                    <div class="flex justify-center text-purple-500">
-                        <div class="border p-1">suivant</div>
-                        <div class="w-10 h-10 border">1</div>
-                        <div class="w-10 h-10 border">2</div>
-                        <div class="w-10 h-10 border">3</div>
-                        <div class="w-10 h-10 border">4</div>
-                        <div class="w-10 h-10 border">....</div>
-                        <div class="w-10 h-10 border">10</div>
-                        <div class="p-1 border">précedant</div>
+                <div class="text-center my-5">
+                    <div class="flex justify-center items-start text-blue-600">
+                        <div class="">
+                            {% if page == 1 %}
+                                <span class="py-1 px-3 border" >&laquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depense_index',{'page' : page - 1 }) }}">&laquo;</a>
+                            {% endif %}
+                        </div>
+                        {% for i in 1..pages %}
+                            <div class=" ">
+                                <a class="py-1 px-3 border {% if page == i %} bg-blue-600 text-white {% endif %}" href="{{ path('depense_index',{'page': i }) }}">{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                        <div class="">
+                            {% if page == pages %}
+                                <span class="py-1 px-3 border" >&raquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depense_index',{'page' : page + 1 }) }}">&raquo;</a>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     </section>
@@ -104,10 +115,12 @@
             <h2 class="text-2xl text-center">Effectuer un retrait</h2>
             {{ form_start(form) }}
                 <div class="mb-4">
-                    {{ form_row(form.somme,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Somme</label>
+                    {{ form_row(form.somme,{'attr':{'class':' w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="mb-4">
-                    {{ form_row(form.motif,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    <label for="">Motif</label>
+                    {{ form_row(form.motif,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
                 </div>
                 <div class="">
                     <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Retirer</button>

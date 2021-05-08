@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+          integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+          crossorigin="anonymous" />
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+    <title>git fund</title>
+</head>
+<body>
+<div class="h-screen flex items-center md:justify-center  flex-col bg-gray-300">
+    <form class="border border-2 p-8 rounded-xl bg-white mt-20 md:mt-0" method="post" action="{{ path('login') }}">
+        <h2 class="text-3xl mb-5 text-indigo-900 font-bold">Connectez-Vous</h2>
+
+        {% if hasError %}
+            <p class="bg-red-300 text-red-800 py-1 px-3">Une erreur est survenue, matricule ou mot de passe incorrecte</p>
+        {% endif %}
+        <div class="my-4">
+            <div class="border py-1 px-3 ">
+                <label for="id"><i class=""><i class="fa fa-user "></i></i></label>
+                <input id="id" name="_username" type="text" class="py-1 px-3 focus:outline-none " value="{{ utilisateur }}" placeholder="matricule">
+            </div>
+        </div>
+        <div class="my-4">
+            <div class="border py-1 px-3">
+                <label for="password"><i class=""><i class="fa fa-lock"></i></i></label>
+                <input id="password" name="_password" type="password" class=" py-1 px-3 focus:outline-none " placeholder="mot de passe">
+            </div>
+        </div>
+        <div class="my-4">
+            <button id="" type="submit" class="w-full py-2 px-6 bg-indigo-900 text-white">Connexion</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -15,7 +15,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(DepotRepository $depotRepository, DepenseRepository $depenseRepository): Response
+    public function home(DepotRepository $depotRepository, DepenseRepository $depenseRepository): Response
     {
         return $this->render('home/index.html.twig', [
             'depots' => $depotRepository->findAll(),
@@ -42,26 +42,38 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/depots", name="depots_public")
+     * @Route("/depots/{page}", name="depots_public", requirements={"page" : "\d+"})
      */
-    public function depots(DepotRepository $depotRepository): Response
+    public function depots($page = 1,DepotRepository $depotRepository): Response
     {
+        $limite = 8;
+        $debut = $page * $limite - $limite;
+        $total = count($depotRepository->findAll());
+        $pages = ceil($total / $limite);
         return $this->render('home/depots.html.twig',[
             'depots' => $depotRepository->findBy(array(),array(
                 'created_at' => 'DESC',
-                )),
+                ),$limite,$debut),
+            'pages' => $pages,
+            'page' =>$page,
         ]);
     }
 
     /**
-     * @Route("/depenses", name="depenses_public")
+     * @Route("/depenses/{page}", name="depenses_public", requirements={"page":"\d+"})
      */
-    public function depenses(DepenseRepository $depenseRepository): Response
+    public function depenses($page = 1,DepenseRepository $depenseRepository): Response
     {
+        $limite = 8;
+        $debut = $page * $limite - $limite;
+        $total = count($depenseRepository->findAll());
+        $pages = ceil($total / $limite);
         return $this->render('home/depenses.html.twig',[
             'depenses' => $depenseRepository->findBy(array(),array(
                 'created' => 'DESC'
-            ))
+            ),$limite,$debut),
+            'pages' => $pages,
+            'page' =>$page,
         ]);
     }
 

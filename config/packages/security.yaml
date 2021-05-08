@@ -1,7 +1,14 @@
 security:
+    encoders:
+        App\Entity\Adherent:
+            algorithm: plaintext
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         users_in_memory: { memory: null }
+        in_database:
+            entity:
+                class: App\Entity\Adherent
+                property: matricule
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -9,7 +16,14 @@ security:
         main:
             anonymous: true
             lazy: true
-            provider: users_in_memory
+            provider: in_database
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: deconnexion
+                target: login
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

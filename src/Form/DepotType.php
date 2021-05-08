@@ -17,13 +17,15 @@ class DepotType extends AbstractType
         $builder
             ->add('adherents',EntityType::class,[
                 'class' => Adherent::class,
+                'label' => false,
                 'choice_label' => function(Adherent $adherent){
                     return $adherent->getNom().' '.$adherent->getPrenom();
                 }
             ])
             ->add('somme',EntityType::class,[
                 'class' => Somme::class,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
+                'label' => false,
             ])
         ;
     }

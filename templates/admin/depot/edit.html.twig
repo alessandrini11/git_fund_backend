@@ -7,15 +7,17 @@
         <div class="my-5 w-9/12 bg-white p-3 md:w-max">
             <h2 class="text-2xl text-center">Effectuer un depot</h2>
             {{ form_start(form) }}
-                <div class="mb-4 flex flex-col">
-                    {{ form_row(form.adherents,{'attr':{'class':'border border-2 border-gray-600'}}) }}
-                </div>
-                <div class="mb-4 flex flex-col">
-                    {{ form_row(form.somme,{'attr':{'class':'border border-2 border-gray-600 w-1/2'}}) }}
-                </div>
-                <div class="">
-                    <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Modifier</button>
-                </div>
+            <div class="mb-4 ">
+                <label for="adherents">Adhérent</label>
+                {{ form_row(form.adherents,{'attr':{'class':'w-full border border-2 border-gray-600'}}) }}
+            </div>
+            <div class="mb-4 ">
+                <label for="somme">Somme</label>
+                {{ form_row(form.somme,{'attr':{'class':'w-full border border-2 border-gray-600 w-1/2'}}) }}
+            </div>
+            <div class="">
+                <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Effectué</button>
+            </div>
             {{ form_end(form) }}
         </div>
 

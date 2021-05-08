@@ -4,7 +4,7 @@
     <section>
         <div class="">
             <div class="">
-                <form action="">
+                {#<form action="">
                     <h2 class="text-xl my-3">Triez les dépots</h2>
                     <div class="">
                         <select class="border py-1 px-3" name="mois" id="mois">
@@ -29,6 +29,7 @@
                         <button type="submit" class="bg-purple-500 py-1 px-3 text-white"><i class="fa fa-search"></i></button>
                     </div>
                 </form>
+                #}
             </div>
             <div class="mt-8">
                 <h1 class="text-3xl my-3">Tous les dépots</h1>
@@ -54,18 +55,28 @@
                     </tbody>
                 </table>
                 <div class="text-center my-5">
-                    <div class="flex justify-center text-blue-600">
-                        <div class="border p-1">suivant</div>
-                        <div class="w-10 h-10 border">1</div>
-                        <div class="w-10 h-10 border">2</div>
-                        <div class="w-10 h-10 border">3</div>
-                        <div class="w-10 h-10 border">4</div>
-                        <div class="w-10 h-10 border">....</div>
-                        <div class="w-10 h-10 border">10</div>
-                        <div class="p-1 border">précedant</div>
+                    <div class="flex justify-center items-start text-blue-600">
+                        <div class="">
+                            {% if page == 1 %}
+                                <span class="py-1 px-3 border" >&laquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depots_public',{'page' : page - 1 }) }}">&laquo;</a>
+                            {% endif %}
+                        </div>
+                        {% for i in 1..pages %}
+                            <div class=" ">
+                                <a class="py-1 px-3 border {% if page == i %} bg-blue-600 text-white {% endif %}" href="{{ path('depots_public',{'page': i }) }}">{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                        <div class="">
+                            {% if page == pages %}
+                                <span class="py-1 px-3 border" >&raquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depots_public',{'page' : page + 1 }) }}">&raquo;</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 

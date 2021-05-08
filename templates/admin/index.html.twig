@@ -55,7 +55,7 @@
                 <section>
                     <h1 class="text-4xl my-5">Statistiques</h1>
                     <div class="md:flex md:justify-between">
-                        <div class="bg-white md:w-1/2">
+                        <div class="bg-white md:w-1/2 hidden">
                             <canvas id="mensuel" height="300"></canvas>
                         </div>
                         <div class="bg-white md:w-1/2 my-5 md:my-0 md:mx-5  py-2">
@@ -101,28 +101,28 @@
             }
         });
 
-        let data = new Chart(mensuel,{
-            type:'line',
-            data:{
-                labels:{{ depotsDate | raw  }},
-                datasets:[{
-                    label:'montant',
-                    data:{{ depotsSomme | raw }},
-                    backgroundColor:"green",
-                    borderWidth:2,
-                    borderColor:'green',
-                    tension:0.2
-                }]
-            },
-            options:{
+        {#let data = new Chart(mensuel,{#}
+        {#    type:'line',#}
+        {#    data:{#}
+        {#        labels:{{ depotsDate | raw  }},#}
+        {#        datasets:[{#}
+        {#            label:'montant',#}
+        {#            data:{{ depotsSomme | raw }},#}
+        {#            backgroundColor:"green",#}
+        {#            borderWidth:2,#}
+        {#            borderColor:'green',#}
+        {#            tension:0.2#}
+        {#        }]#}
+        {#    },#}
+        {#    options:{#}
 
-            },
-            scales:{
-                y:{
-                    min:0,
-                    max:1000000
-                }
-            }
-        });
+        {#    },#}
+        {#    scales:{#}
+        {#        y:{#}
+        {#            min:0,#}
+        {#            max:1000000#}
+        {#        }#}
+        {#    }#}
+        {#});#}
     </script>
 {% endblock %}

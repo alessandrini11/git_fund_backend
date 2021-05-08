@@ -6,7 +6,7 @@
     <section>
         <div class="">
             <div class="">
-                <form action="">
+                {#<form action="">
                     <h2 class="text-xl my-3">Triez les dépots</h2>
                     <div class="">
                         <select class="border py-1 px-3" name="mois" id="mois">
@@ -32,6 +32,7 @@
                                     class="fa fa-search"></i></button>
                     </div>
                 </form>
+                #}
             </div>
             <div class="mt-8">
                 {% for message in app.flashes('success')  %}
@@ -40,10 +41,10 @@
                 {% for message in app.flashes('supprimer')  %}
                     <p class="bg-red-300 text-red-800 py-1 px-3">{{ message }}</p>
                 {% endfor %}
-                <h1 class="text-3xl my-3">Tous les dépots</h1>
+                <h1 class="text-3xl mt-3">Tous les dépots</h1>
                 <p class="mb-2 text-right"><button id="depotadd" class="text-white bg-blue-600 p-1"><i
                                 class="fa fa-plus"></i></button></p>
-                <table class="p-10 w-full bg-white">
+                <table class="p-10 w-full bg-white text-center">
                     <thead class="bg-black text-white">
                     <tr>
                         <th>Nom</th>
@@ -55,7 +56,7 @@
                     <tbody>
 
                     {% for depot in depots %}
-                    <tr class="{% if loop.index%2 == 0 %} bg-gray-100 {% endif %} ">
+                    <tr class="{% if loop.index%2 == 0 %} bg-gray-300 {% endif %} ">
                         <td>{{ depot.adherents.nom }} {{ depot.adherents.prenom }}</td>
                         <td>{{ depot.somme.nom }}</td>
                         <td> {{ depot.createdAt ? depot.createdAt|date('d M Y') : '' }}</td>
@@ -82,30 +83,43 @@
                     </tbody>
                 </table>
                 <div class="text-center my-5">
-                    <div class="flex justify-center text-blue-600">
-                        <div class="border p-1">suivant</div>
-                        <div class="w-10 h-10 border">1</div>
-                        <div class="w-10 h-10 border">2</div>
-                        <div class="w-10 h-10 border">3</div>
-                        <div class="w-10 h-10 border">4</div>
-                        <div class="w-10 h-10 border">....</div>
-                        <div class="w-10 h-10 border">10</div>
-                        <div class="p-1 border">précedant</div>
+                    <div class="flex justify-center items-start text-blue-600">
+                        <div class="">
+                            {% if page == 1 %}
+                                <span class="py-1 px-3 border" >&laquo;</span>
+                                {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page - 1 }) }}">&laquo;</a>
+                            {% endif %}
+                        </div>
+                        {% for i in 1..pages %}
+                            <div class=" ">
+                                <a class="py-1 px-3 border {% if page == i %} bg-blue-600 text-white {% endif %}" href="{{ path('depot_index',{'page': i }) }}">{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                        <div class="">
+                            {% if page == pages %}
+                                <span class="py-1 px-3 border" >&raquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page + 1 }) }}">&raquo;</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <div id="modal"
-         class="w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col  hidden">
+         class="w-full h-full fixed left-0 top-0 flex justify-center items-center flex-col hidden  ">
         <div class="my-5 w-9/12 bg-white p-3 md:w-max">
             <p class="mb-2 text-right"><button id="closemodal"><i class="fas fa-times"></i></button></p>
             <h2 class="text-2xl text-center">Effectuer un depot</h2>
             {{ form_start(form) }}
                 <div class="mb-4 ">
+                    <label for="adherents">Adhérent</label>
                     {{ form_row(form.adherents,{'attr':{'class':'border border-2 border-gray-600'}}) }}
                 </div>
                 <div class="mb-4 ">
+                    <label for="somme">Somme</label>
                     {{ form_row(form.somme,{'attr':{'class':'border border-2 border-gray-600 w-1/2'}}) }}
                 </div>
                 <div class="">

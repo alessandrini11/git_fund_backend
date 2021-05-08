@@ -16,10 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class DepenseController extends AbstractController
 {
     /**
-     * @Route("/", name="depense_index", methods={"GET","POST"})
+     * @Route("/{page}", name="depense_index", methods={"GET","POST"}, requirements={"page":"\d+"})
      */
-    public function index(DepenseRepository $depenseRepository,Request $request): Response
+    public function index($page = 1,DepenseRepository $depenseRepository,Request $request): Response
     {
+        $limite = 8;
+        $debut = $page * $limite - $limite;
+        $total = count($depenseRepository->findAll());
+        $pages = ceil($total / $limite);
         $depense = new Depense();
         $form = $this->createForm(DepenseType::class, $depense);
         $form->handleRequest($request);
@@ -36,8 +40,10 @@ class DepenseController extends AbstractController
             return $this->redirectToRoute('depense_index');
         }
         return $this->render('admin/depense/index.html.twig', [
-            'depenses' => $depenseRepository->findBy(array(),array('id' => 'DESC')),
+            'depenses' => $depenseRepository->findBy(array(),array('id' => 'DESC'),$limite,$debut),
             'form' => $form->createView(),
+            'pages' => $pages,
+            'page' =>$page,
         ]);
     }
 

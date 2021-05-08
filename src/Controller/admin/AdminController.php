@@ -25,17 +25,8 @@ class AdminController extends AbstractController
         $filiereNom = [];
         $filiereCount = [];
         $depenses = $depenseRepository->findAll();
-        $dates = $dateRepository->findBy(array(),array('date' => 'ASC'));
-        $dateDepot = [];
-        $dateCount = [];
-        $depotSomme = [];
-        foreach ($depots as $depot){
-            $depotSomme[] = $depot->getSomme();
-        }
-        foreach ($dates as $date){
-            $dateDepot[] = $date->getDate()->format('M');
-            $dateCount[] = count($date->getDepots());
-        }
+
+
         foreach ($filieres as $filiere){
             $filiereCount[] = count($filiere->getAdherents());
             $filiereNom[] = $filiere->getNom();
@@ -44,8 +35,6 @@ class AdminController extends AbstractController
             'adhrents' => $adherents,
             'depenses' => $depenses,
             'depots' => $depots,
-            'depotsDate' => json_encode($dateDepot),
-            'depotsSomme' => json_encode($depotSomme),
             'filiereCount' =>json_encode($filiereCount),
             'filiereNom' => json_encode($filiereNom)
         ]);
