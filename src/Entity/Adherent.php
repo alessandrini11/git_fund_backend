@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AdherentRepository;
+use App\Repository\DepotRepository as Repo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -195,6 +196,23 @@ class Adherent implements UserInterface
         return $this;
     }
 
+    public function toArray(){
+        $depots = Repo::class->findAll();
+        $sommes = [];
+        foreach ($depots as $depot){
+            $sommes[] = $depot->getSomme()->getNom();
+        }
+        return [
+            'id' => $this->id,
+            'nom'  => $this->nom,
+            'prenom' => $this->prenom,
+            'matricule' => $this->matricule,
+            'sexe' => $this->getSexe()->getNom(),
+            'filiere' => $this->getFiliere()->getNom(),
+            'poste' => $this->getPoste()->getNom(),
+            'depots' => $sommes
+        ];
+    }
     /**
      * Returns the roles granted to the user.
      *

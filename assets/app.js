@@ -10,6 +10,12 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+import Vue from 'vue'
+import App from './components/App'
+new Vue({
+    el: "#app",
+    components:{App}
+})
 window.addEventListener("load",() =>{
 
     // let counters = document.querySelectorAll(".counter");

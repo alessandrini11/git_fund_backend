@@ -49,6 +49,7 @@ Encore
     .configureBabel((config) => {
         config.plugins.push('@babel/plugin-proposal-class-properties');
     })
+    .enableVueLoader()
 
     // enables @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {

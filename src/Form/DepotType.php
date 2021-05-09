@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Adherent;
 use App\Entity\Depot;
 use App\Entity\Somme;
+use App\Repository\AdherentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +18,10 @@ class DepotType extends AbstractType
         $builder
             ->add('adherents',EntityType::class,[
                 'class' => Adherent::class,
+                'query_builder' => function(AdherentRepository $adherent){
+                    return $adherent->createQueryBuilder('a')
+                        ->orderBy('a.nom','ASC');
+                },
                 'label' => false,
                 'choice_label' => function(Adherent $adherent){
                     return $adherent->getNom().' '.$adherent->getPrenom();

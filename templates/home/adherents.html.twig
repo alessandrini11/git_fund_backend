@@ -3,7 +3,10 @@
 {% block body %}
     <div class="">
         <h1 class="text-3xl my-2">Les Adhérents</h1>
-        <table class="w-full text-center bg-white hidden md:table">
+        <div id="app">
+            <App />
+        </div>
+        {#<table class="w-full text-center bg-white hidden md:table">
             <thead class="bg-black text-white">
             <tr>
                 <th>Nom</th>
@@ -84,6 +87,7 @@
 
             </tbody>
         </table>
+        #}
     </div>
 {% endblock %}
 

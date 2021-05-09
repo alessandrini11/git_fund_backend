@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/home", name="home")
      */
     public function home(DepotRepository $depotRepository, DepenseRepository $depenseRepository): Response
     {
@@ -34,11 +34,18 @@ class HomeController extends AbstractController
      */
     public function adherents(AdherentRepository $adherentRepository): Response
     {
-        return $this->render('home/adherents.html.twig',[
-            'adherents' => $adherentRepository->findBy(array(),array(
-                'nom' => 'ASC'
-            ))
-        ]);
+        $adherents = $adherentRepository->findAll();
+        $arrayAdherents = [];
+        foreach ($adherents as $adherent){
+            $arrayAdherents[] = $adherent->toArray();
+        }
+        return $this->json($arrayAdherents);
+//        return $this->render('home/adherents.html.twig',[
+//            'adherents' => $adherentRepository->findBy(array(),array(
+//                'nom' => 'ASC'
+//            )),
+//            'membres' => json($adherents)
+//        ]);
     }
 
     /**
