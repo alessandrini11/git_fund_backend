@@ -3,7 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Adherent;
+use App\Entity\AdherentFiltre;
+use App\Form\AdherentFiltreType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +22,16 @@ class AdherentRepository extends ServiceEntityRepository
         parent::__construct($registry, Adherent::class);
     }
 
+    public function findByNom(AdherentFiltre $filtre): Query
+    {
+        return $this->createQueryBuilder('a')
+                ->orderBy('a.nom','ASC')
+                ->where('a.nom = :val' )
+                ->setParameter('val',$filtre)
+                ->getQuery()
+            ;
+
+    }
     // /**
     //  * @return Adherent[] Returns an array of Adherent objects
     //  */

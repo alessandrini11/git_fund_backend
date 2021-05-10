@@ -72,9 +72,15 @@ class Adherent implements UserInterface
      */
     private $depots;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="adherents")
+     */
+    private $adhrentRoles;
+
     public function __construct()
     {
         $this->depots = new ArrayCollection();
+        $this->adhrentRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,23 +202,6 @@ class Adherent implements UserInterface
         return $this;
     }
 
-    public function toArray(){
-        $depots = Repo::class->findAll();
-        $sommes = [];
-        foreach ($depots as $depot){
-            $sommes[] = $depot->getSomme()->getNom();
-        }
-        return [
-            'id' => $this->id,
-            'nom'  => $this->nom,
-            'prenom' => $this->prenom,
-            'matricule' => $this->matricule,
-            'sexe' => $this->getSexe()->getNom(),
-            'filiere' => $this->getFiliere()->getNom(),
-            'poste' => $this->getPoste()->getNom(),
-            'depots' => $sommes
-        ];
-    }
     /**
      * Returns the roles granted to the user.
      *
@@ -229,8 +218,14 @@ class Adherent implements UserInterface
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $roles = $this->adhrentRoles->map(function($role){
+           return $role->getNom();
+        })->toArray();
+
+        $roles[] = 'ROLE_USER';
+        return $roles;
         // TODO: Implement getRoles() method.
+
     }
 
     /**
@@ -279,5 +274,32 @@ class Adherent implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getAdhrentRoles(): Collection
+    {
+        return $this->adhrentRoles;
+    }
+
+    public function addAdhrentRole(Role $adhrentRole): self
+    {
+        if (!$this->adhrentRoles->contains($adhrentRole)) {
+            $this->adhrentRoles[] = $adhrentRole;
+            $adhrentRole->addAdherent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdhrentRole(Role $adhrentRole): self
+    {
+        if ($this->adhrentRoles->removeElement($adhrentRole)) {
+            $adhrentRole->removeAdherent($this);
+        }
+
+        return $this;
     }
 }

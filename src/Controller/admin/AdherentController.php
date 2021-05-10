@@ -5,6 +5,7 @@ namespace App\Controller\admin;
 use App\Entity\Adherent;
 use App\Form\AdherentType;
 use App\Repository\AdherentRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdherentController extends AbstractController
 {
     /**
+     *
      * @Route("/", name="adherent_index", methods={"GET","POST"})
+     *
      */
     public function index(AdherentRepository $adherentRepository,Request $request): Response
     {

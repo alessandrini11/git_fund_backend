@@ -2,18 +2,29 @@
 {% block title %} adhérents{% endblock %}
 {% block body %}
     <div class="">
-        <h1 class="text-3xl my-2">Les Adhérents</h1>
-        <div id="app">
-            <App />
+        <h2 class="text-xl my-3">Triez les dépots</h2>
+        <div class="">
+            {{ form_start(form) }}
+            <div class="flex">
+                {{ form_row(form.nom,{'attr':{'class':'border border-8 border-black  py-1 px-3'}}) }}
+                <div class="">
+                    <button class="h-full bg-purple-500 py-1 px-3 text-white"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            {{ form_end(form) }}
         </div>
-        {#<table class="w-full text-center bg-white hidden md:table">
+        <h1 class="text-3xl my-2">Les Adhérents</h1>
+
+        <table class="w-full text-center bg-white hidden md:table">
             <thead class="bg-black text-white">
             <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Sexe</th>
                 <th>Filère</th>
+                <th>Mtricule</th>
                 <th>Poste</th>
+                <th>Role</th>
                 <th>Total cotisé</th>
                 <th>Action</th>
             </tr>
@@ -24,8 +35,18 @@
                 <td>{{ adherent.nom}}</td>
                 <td>{{ adherent.prenom }}</td>
                 <td>{{ adherent.sexe.nom}}</td>
+                <td>{{ adherent.filiere.nom }}</td>
                 <td>{{ adherent.matricule}}</td>
                 <td>{{ adherent.poste.nom }}</td>
+                <th>
+                    {% for role in adherent.getAdhrentRoles() %}
+                        {% if role.nom == 'ROLE_ADMIN' %}
+                            Admin
+                        {% else %}
+                            Visiteur
+                        {% endif %}
+                    {% endfor %}
+                </th>
                 <td>
                     {% set total = 0 %}
                     {% for depot in adherent.depots %}
@@ -67,6 +88,14 @@
                 <th>Poste</th>
                 <td> {{ adherent.poste.nom}}</td>
             </tr>
+                <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
+                    <th>Role</th>
+                    <td>
+{#                        {% for role in adherent.roles %}#}
+{#                            {{ role.nom }}#}
+{#                        {% endfor %}#}
+                    </td>
+                </tr>
             <tr class="{% if loop.index is even %} bg-gray-300{% endif %}">
                 <th>Total cotisé</th>
                 <td>
@@ -87,7 +116,7 @@
 
             </tbody>
         </table>
-        #}
+
     </div>
 {% endblock %}
 

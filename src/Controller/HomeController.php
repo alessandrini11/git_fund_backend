@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Adherent;
+use App\Entity\AdherentFiltre;
+use App\Form\AdherentFiltreType;
 use App\Repository\AdherentRepository;
 use App\Repository\DepenseRepository;
 use App\Repository\DepotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class HomeController extends AbstractController
 {
@@ -32,20 +36,17 @@ class HomeController extends AbstractController
     /**
      * @Route("/adherents", name="adherent_public")
      */
-    public function adherents(AdherentRepository $adherentRepository): Response
+    public function adherents(Request $request,AdherentRepository $adherentRepository): Response
     {
-        $adherents = $adherentRepository->findAll();
-        $arrayAdherents = [];
-        foreach ($adherents as $adherent){
-            $arrayAdherents[] = $adherent->toArray();
-        }
-        return $this->json($arrayAdherents);
-//        return $this->render('home/adherents.html.twig',[
-//            'adherents' => $adherentRepository->findBy(array(),array(
-//                'nom' => 'ASC'
-//            )),
-//            'membres' => json($adherents)
-//        ]);
+        $filtre = new AdherentFiltre();
+        $form = $this->createForm(AdherentFiltreType::class,$filtre);
+        $form->handleRequest($request);
+
+        //        return $this->json($arrayAdherent);
+        return $this->render('home/adherents.html.twig',[
+            'adherents' => $adherentRepository->findByNom($filtre),
+            'form' => $form->createView()
+        ]);
     }
 
     /**
