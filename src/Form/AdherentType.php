@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Adherent;
 use App\Entity\Filiere;
 use App\Entity\Poste;
+use App\Entity\Role;
 use App\Entity\Sexe;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -21,9 +22,11 @@ class AdherentType extends AbstractType
         $builder
             ->add('nom',TextType::class,[
                 'label' => false,
+                'required' => true,
             ])
             ->add('prenom',TextType::class,[
                 'label' => false,
+                'required' => true,
             ])
             ->add('sexe',EntityType::class,[
                 'class' => Sexe::class,
@@ -38,15 +41,15 @@ class AdherentType extends AbstractType
             ->add('filiere',EntityType::class,[
                 'class' => Filiere::class,
                 'label' => false,
-                'choice_label' => 'nom'
+                'choice_label' => 'nom',
             ])
             ->add('matricule',TextType::class,[
                 'label' => false,
+                'required' => true,
             ])
             ->add('mdp', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne coïncident pas',
-                'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => false ],
                 'second_options' => ['label' => false],

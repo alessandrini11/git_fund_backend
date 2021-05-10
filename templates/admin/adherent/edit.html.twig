@@ -21,25 +21,17 @@
                     <label for="">Sexe</label>
                     {{ form_row(form.sexe,{'attr':{'class':'  border border-2 border-gray-500 px-3'}}) }}
                 </div>
-                <div class=" flex flex-col ">
+                <div class=" flex flex-col ml-5 ">
                     <label for="">Poste</label>
-                    {{ form_row(form.poste,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    {{ form_row(form.poste,{'attr':{'class':' border border-2 border-gray-500 px-3'}}) }}
                 </div>
             </div>
-            <div class="flex justify-between  my-4">
+            <div class="  my-4">
                 <div class=" flex flex-col ">
                     <label for="">Filière</label>
-                    {{ form_row(form.filiere,{'attr':{'class':'border border-2 border-gray-500 px-3'}}) }}
+                    {{ form_row(form.filiere,{'attr':{'class':'w-1/2 border border-2 border-gray-500 px-3'}}) }}
                 </div>
-                <div class=" flex flex-col ml-5">
-                    <label for="role">Role</label>
-                    <select class="px-2 border border-2
-                            border-gray-500" name="role" id="role">
-                        <option value="">visiteur</option>
-                        <option value="">admin</option>
-                        <option value="">super admin</option>
-                    </select>
-                </div>
+
             </div>
             <div class="mb-4 flex flex-col ">
                 <label for="">Matricule</label>
@@ -47,7 +39,12 @@
             </div>
             <div class="mb-4 flex flex-col ">
                 <label for="">Mot de passe</label>
-                {{ form_row(form.mdp,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
+                {{ form_row(form.mdp.first,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
+            </div>
+
+            <div class="mb-4 flex flex-col ">
+                <label for="">Confirmez le mot de passe</label>
+                {{ form_row(form.mdp.second,{'attr':{'class':'w-full border border-2 border-gray-500 px-3'}}) }}
             </div>
             <div class="">
                 <button class="bg-green-600 text-white py-1 px-3 w-full " type="submit">Inscrire</button>

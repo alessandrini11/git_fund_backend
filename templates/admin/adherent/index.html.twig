@@ -15,7 +15,7 @@
                         class="fa fa-plus"></i></button></p>
 
         <div>
-            <table class="w-full text-center bg-white hidden md:table">
+            <table class="w-full text-center bg-white hidden md:table mb-5">
                 <thead class="bg-black text-white">
                 <tr>
                     <th>Nom</th>
@@ -24,6 +24,7 @@
                     <th>Filiere</th>
                     <th>Matricule</th>
                     <th>Poste</th>
+                    <th>Role</th>
                     <th>Total cotisé</th>
                     <th>Action</th>
                 </tr>
@@ -49,10 +50,19 @@
 
                         </td>
                         <td>
+                            {% for role in adherent.getAdhrentRoles() %}
+                                {% if role.nom == 'ROLE_ADMIN' %}
+                                    Admin
+                                {% else %}
+                                    Visiteur
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
                             <div class="flex justify-between py-1">
                                 <a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class="p-1 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
-                                {{ include('admin/adherent/_delete_form.html.twig') }}
                                 <a class="p-1  bg-purple-600 text-white" href="{{ path('adherent_show',{'id' : adherent.id}) }}"><i class="fas fa-eye"></i></a>
+                                {{ include('admin/adherent/_delete_form.html.twig') }}
                             </div>
                         </td>
                     </tr>
@@ -99,15 +109,26 @@
                             {{ total | number_format(0,'','.') }} XAF
                         </td>
                     </tr>
-
+                    <tr>
+                        <th>Role</th>
+                        <td>
+                            {% for role in adherent.getAdhrentRoles() %}
+                                {% if role.nom == 'ROLE_ADMIN' %}
+                                    Admin
+                                {% else  %}
+                                    Visiteur
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
 
                     <tr>
                         <th>Action</th>
                         <td>
                             <div class="flex flex-row py-1">
                                 <a href="{{ path('adherent_edit', {'id': adherent.id}) }}" class=" p-1 mr-5 bg-green-600 text-white"><i class="fas fa-edit "></i></a>
+                                <a class="p-1 mr-5 bg-purple-600 text-white" href="{{ path('adherent_show',{'id' : adherent.id}) }}"><i class="fas fa-eye"></i></a>
                                 {{ include('admin/adherent/_delete_form.html.twig') }}
-                                <a class="p-1 ml-5 bg-purple-600 text-white" href="{{ path('adherent_show',{'id' : adherent.id}) }}"><i class="fas fa-eye"></i></a>
                             </div>
 
                         </td>

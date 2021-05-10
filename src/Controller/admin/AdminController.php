@@ -8,6 +8,7 @@ use App\Repository\DateRepository;
 use App\Repository\DepenseRepository;
 use App\Repository\DepotRepository;
 use App\Repository\FiliereRepository;
+use App\Repository\SexeRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class AdminController extends AbstractController
      * @Route("/admin", name="admin")
      *
      */
-    public function index(DateRepository $dateRepository,DepotRepository $depotRepository,DepenseRepository $depenseRepository,FiliereRepository $filiereRepository,AdherentRepository $adherentRepository): Response
+    public function index(SexeRepository $sexerepo,DepotRepository $depotRepository,DepenseRepository $depenseRepository,FiliereRepository $filiereRepository,AdherentRepository $adherentRepository): Response
     {
         $depots = $depotRepository->findAll();
         $adherents = $adherentRepository->findAll();
@@ -27,6 +28,14 @@ class AdminController extends AbstractController
         $filiereNom = [];
         $filiereCount = [];
         $depenses = $depenseRepository->findAll();
+
+        $sexeadherent = [];
+        $sexeNom = [];
+        $sexes = $sexerepo->findAll();
+        foreach ($sexes as $sexe){
+            $sexeNom[] = $sexe->getNom();
+            $sexeadherent[] = count($sexe->getAdherents());
+        }
 
 
         foreach ($filieres as $filiere){
@@ -38,7 +47,9 @@ class AdminController extends AbstractController
             'depenses' => $depenses,
             'depots' => $depots,
             'filiereCount' =>json_encode($filiereCount),
-            'filiereNom' => json_encode($filiereNom)
+            'filiereNom' => json_encode($filiereNom),
+            'sexeadherent' => json_encode($sexeadherent),
+            'sexeNom' => json_encode($sexeNom)
         ]);
     }
 

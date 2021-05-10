@@ -42,9 +42,10 @@ class HomeController extends AbstractController
         $form = $this->createForm(AdherentFiltreType::class,$filtre);
         $form->handleRequest($request);
 
-        //        return $this->json($arrayAdherent);
         return $this->render('home/adherents.html.twig',[
-            'adherents' => $adherentRepository->findByNom($filtre),
+            'adherents' => $adherentRepository->findBy(array(),array(
+                'nom' => 'ASC'
+            )),
             'form' => $form->createView()
         ]);
     }

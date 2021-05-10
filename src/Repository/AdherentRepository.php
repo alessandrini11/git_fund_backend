@@ -22,13 +22,14 @@ class AdherentRepository extends ServiceEntityRepository
         parent::__construct($registry, Adherent::class);
     }
 
-    public function findByNom(AdherentFiltre $filtre): Query
+    public function findByNom(AdherentFiltre $filtre): array
     {
         return $this->createQueryBuilder('a')
                 ->orderBy('a.nom','ASC')
-                ->where('a.nom = :val' )
-                ->setParameter('val',$filtre)
+                ->andWhere('a.nom LIKE :nom' )
+                ->setParameter('nom',"%{$filtre}%")
                 ->getQuery()
+                ->getResult()
             ;
 
     }

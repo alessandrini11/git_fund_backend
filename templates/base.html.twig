@@ -39,7 +39,7 @@
 
                         <button class="hidden md:block" id="menu"><i class="fa fa-chevron-down text-2xl"></i></button>
                     </div>
-                    <div id="dropdown" class=" bg-indigo-900 text-white p-1 hidden absolute left-20 top-12 ">
+                    <div id="dropdown" class="hidden bg-indigo-900 text-white p-1  absolute top-12 {% if is_granted('ROLE_ADMIN') %} left-20  {% else %} right-0 {% endif %}  ">
                         <ul class="p-1">
                             <li>
                                 <a href="{{ path('deconnexion') }}">Deconnexion</a>
