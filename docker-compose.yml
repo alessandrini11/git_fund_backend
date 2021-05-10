@@ -1,0 +1,10 @@
+version: '3'
+services:
+  database:
+    image: mysql
+    environment:
+      MYSQL_USER: main
+      MYSQL_PASSWORD: main
+      MYSQL_DATABASE: main
+    ports:
+      - 3306
