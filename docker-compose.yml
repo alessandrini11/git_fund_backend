@@ -6,5 +6,6 @@ services:
       MYSQL_USER: main
       MYSQL_PASSWORD: main
       MYSQL_DATABASE: main
+      MYSQL_ALLOW_EMPTY_PASSWORD:
     ports:
       - 3306
