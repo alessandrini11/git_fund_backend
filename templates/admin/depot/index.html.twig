@@ -1,6 +1,6 @@
 {% extends 'adminbase.html.twig' %}
 
-{% block title %}Depot{% endblock %}
+{% block title %}Depot index{% endblock %}
 
 {% block body %}
     <section>
@@ -82,29 +82,29 @@
                     </tr>
                     </tbody>
                 </table>
-{#                <div class="text-center my-5">#}
-{#                    <div class="flex justify-center items-start text-blue-600">#}
-{#                        <div class="">#}
-{#                            {% if page == 1 %}#}
-{#                                <span class="py-1 px-3 border" >&laquo;</span>#}
-{#                                {% else %}#}
-{#                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page - 1 }) }}">&laquo;</a>#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                        {% for i in 1..pages %}#}
-{#                            <div class=" ">#}
-{#                                <a class="py-1 px-3 border {% if page == i %} bg-blue-600 text-white {% endif %}" href="{{ path('depot_index',{'page': i }) }}">{{ i }}</a>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
-{#                        <div class="">#}
-{#                            {% if page == pages %}#}
-{#                                <span class="py-1 px-3 border" >&raquo;</span>#}
-{#                            {% else %}#}
-{#                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page + 1 }) }}">&raquo;</a>#}
-{#                            {% endif %}#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
+                <div class="text-center my-5">
+                    <div class="flex justify-center items-start text-blue-600">
+                        <div class="">
+                            {% if page == 1 %}
+                                <span class="py-1 px-3 border" >&laquo;</span>
+                                {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page - 1 }) }}">&laquo;</a>
+                            {% endif %}
+                        </div>
+                        {% for i in 1..pages %}
+                            <div class=" ">
+                                <a class="py-1 px-3 border {% if page == i %} bg-blue-600 text-white {% endif %}" href="{{ path('depot_index',{'page': i }) }}">{{ i }}</a>
+                            </div>
+                        {% endfor %}
+                        <div class="">
+                            {% if page == pages %}
+                                <span class="py-1 px-3 border" >&raquo;</span>
+                            {% else %}
+                                <a class="py-1 px-3 border" href="{{ path('depot_index',{'page' : page + 1 }) }}">&raquo;</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
