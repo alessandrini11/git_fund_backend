@@ -16,14 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class DepotController extends AbstractController
 {
     /**
-     * @Route("/{page}", name="depot_index", methods={"GET","POST"}, requirements={"page":"\d+"})
+     * @Route("/", name="depot_index", methods={"GET","POST"}, requirements={"page":"\d+"})
+     * @param int $page
+     * @param DepotRepository $depotRepository
+     * @param Request $request
+     * @return Response
      */
-    public function index($page = 1,DepotRepository $depotRepository, Request $request): Response
+    public function index(DepotRepository $depotRepository, Request $request): Response
     {
-        $limite = 8;
-        $debut = $page * $limite - $limite;
-        $total = count($depotRepository->findAll());
-        $pages = ceil($total / $limite);
+//        $limite = 8;
+//        $debut = $page * $limite - $limite;
+//        $total = count($depotRepository->findAll());
+//        $pages = ceil($total / $limite);
         $depot = new Depot();
         $form = $this->createForm(DepotType::class, $depot);
         $form->handleRequest($request);
@@ -40,10 +44,11 @@ class DepotController extends AbstractController
             return $this->redirectToRoute('depot_index');
         }
         return $this->render('admin/depot/index.html.twig', [
-            'depots' => $depotRepository->findBy(array(),array('created_at' => 'DESC'),$limite,$debut),
+//            'depots' => $depotRepository->findBy(array(),array('created_at' => 'DESC'),$limite,$debut),
+            'depots' => $depotRepository->findBy(array(),array('created_at' => 'DESC')),
             'form' => $form->createView(),
-            'pages' => $pages,
-            'page' =>$page,
+//            'pages' => $pages,
+//            'page' =>$page,
         ]);
     }
 
